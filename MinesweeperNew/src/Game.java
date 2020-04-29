@@ -22,7 +22,34 @@ public class Game extends Display {
 	 */
 	public void GameLoop()
 	{
-	//hello
+		do {
+			Scanner scn = new Scanner(System.in);
+			System.out.println("Enter row number");
+			
+			//Ensure user input is an integer
+			while(!scn.hasNextInt()) {
+				scn.next();
+				System.out.println("Invalid entery \nEnter row number");
+			}
+			//TODO check if the number is within the 2d parameters
+			int rowGuess = scn.nextInt();
+			
+			System.out.println("Enter column number");
+			while(!scn.hasNextInt()) {
+				scn.next();
+				System.out.println("Invalid entery \nEnter column number");
+			}
+			//TODO check if the number is within the 2d parameters
+			int colGuess = scn.nextInt();
+			
+			//If the user already clicked that space, loop again without doing anything
+			if(getOpen(rowGuess, colGuess)) {
+				break;
+			}
+			openSpace(rowGuess, colGuess);
+			scn.close();
+		} while(!win());
+		
 	}
 	
 	/**
