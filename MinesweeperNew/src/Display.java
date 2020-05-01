@@ -59,7 +59,7 @@ public class Display extends Board {
 							openSpace(r,c);
 						}
 					}
-					catch (IllegalArgumentException e)
+					catch (Exception e)
 					{
 						//If the number being accessed is off the board (out of bounds), then skip that row number
 						continue;
@@ -92,7 +92,7 @@ public class Display extends Board {
 							nearMines++;
 						}
 					}
-					catch (IllegalArgumentException e)
+					catch (Exception e)
 					{
 						//If the number being accessed is off the board (out of bounds), then skip that row number
 						continue;
@@ -122,41 +122,5 @@ public class Display extends Board {
 	public void setOpen(int row, int col)
 	{
 		open[row][col]=true;
-	}
-	
-	/**
-	 * Throws exceptions for user input of row and column
-	 * @param row integer that user inputs, represents row #
-	 * @param col integer that user inputs, represents column #
-	 * @throws Exception if number is out of bounds or if space is taken
-	 */
-	public void play(int row, int col) throws Exception {
-		if (row < 0 || row > 9 || col < 0 || col > 9) {
-			throw new Exception("Sorry, invalid row/column number. Try again.");
-		}
-		
-		else if (getOpen(row, col)) {
-			throw new Exception("That space is already open. Try another one.");
-		}
-		
-		openSpace(row, col);
-	}
-	
-	/**
-	 * Searches the board's 2D array and display's 2D array to see if they match
-	 * If they all match, the user has uncovered all of the free squares and wins
-	 * If they don't match, the user has not yet uncovered all free squares and hasn't won yet
-	 * @return boolean true if win, false if no win
-	 */
-	public boolean win(final Display display, final Board board)
-	{
-		for (int r = 0; r < 10; r++) {
-			for (int c = 0; c < 10; c++) {
-				if (display.open[r][c] !=  board.mines[r][c]) {
-					return false;
-				}
-			}
-		}
-		return true;
 	}
 }

@@ -13,6 +13,5 @@ public class Main {
 	{
 		Game MineSweeper = new Game();
 		MineSweeper.GameLoop();
-		System.out.println("test msg");
 	}
 }

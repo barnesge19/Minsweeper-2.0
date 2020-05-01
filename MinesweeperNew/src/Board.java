@@ -5,8 +5,8 @@ import java.util.*;
  *
  */
 public class Board {
-	protected boolean[][] mines;
-	public static final int DIMENSION = 10;
+	private boolean[][] mines;
+	public final int DIMENSION = 10;
 	
 	/**
 	 * randomize amount of mines and spread throughout board
