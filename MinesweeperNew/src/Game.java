@@ -1,15 +1,17 @@
 import java.util.*;
+
 /**
  * A collection of methods to run and play the game, handling user I/O
  * @author BARNESGE19
  *
  */
-public class Game extends Display {
+public class Game {
+	private Board userBoard;
+	private Display userGame;
 	
 	public Game()
 	{
-		//Call parent constructor
-			super();
+		userGame = new Display();
 	}
 	
 	/**
@@ -22,44 +24,40 @@ public class Game extends Display {
 	 */
 	public void GameLoop()
 	{
+		System.out.println("Welcome to MineSweeper!");
 		do {
 			Scanner scn = new Scanner(System.in);
-			System.out.println("Enter row number");
+			System.out.println("Enter row number: ");
 			
 			//Ensure user input is an integer
-			while(!scn.hasNextInt()) {
+		
+			while(!scn.hasNextInt() ) {
+				System.out.println("Invalid entry \nEnter row number: ");
 				scn.next();
-				System.out.println("Invalid entery \nEnter row number");
 			}
 			//TODO check if the number is within the 2d parameters
 			int rowGuess = scn.nextInt();
 			
-			System.out.println("Enter column number");
+			System.out.println("Enter column number: ");
 			while(!scn.hasNextInt()) {
+				System.out.println("Invalid entry \nEnter column number: ");
 				scn.next();
-				System.out.println("Invalid entery \nEnter column number");
 			}
 			//TODO check if the number is within the 2d parameters
 			int colGuess = scn.nextInt();
 			
-			//If the user already clicked that space, loop again without doing anything
-			if(getOpen(rowGuess, colGuess)) {
-				break;
+			try {
+				userGame.play(rowGuess, colGuess);
+			} 
+			
+			catch (Exception e) {
+				System.out.println(e.getMessage());
 			}
-			openSpace(rowGuess, colGuess);
 			scn.close();
-		} while(!win());
+		} while(!userGame.win(userGame, userBoard));
 		
-	}
-	
-	/**
-	 * Searches the board's 2D array and display's 2D array to see if they match
-	 * If they all match, the user has uncovered all of the free squares and wins
-	 * If they don't match, the user has not yet uncovered all free squares and hasn't won yet
-	 * @return boolean true if win, false if no win
-	 */
-	public boolean win()
-	{
-		return false;
+		if(userGame.win(userGame, userBoard)) {
+			System.out.println("Congratulations, you won!");
+		}
 	}
 }

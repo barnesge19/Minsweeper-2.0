@@ -11,6 +11,8 @@ public class Main {
 	 */
 	public static void main(String[] args)
 	{
-		
+		Game MineSweeper = new Game();
+		MineSweeper.GameLoop();
+		System.out.println("test msg");
 	}
 }

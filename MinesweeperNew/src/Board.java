@@ -5,7 +5,7 @@ import java.util.*;
  *
  */
 public class Board {
-	private boolean[][] mines;
+	protected boolean[][] mines;
 	public static final int DIMENSION = 10;
 	
 	/**
@@ -19,7 +19,7 @@ public class Board {
 		for(int i=0; i<DIMENSION; i++)
 		{
 			int temp = rn.nextInt(100);
-			mines[temp/10][temp%10]=true;
+			mines[temp / 10][temp % 10]=true;
 		}
 	}
 	
