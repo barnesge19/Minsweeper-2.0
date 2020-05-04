@@ -56,6 +56,7 @@ public class Game {
 						valInput = true;
 					}
 				}
+				//recast line to Integer
 				int rowGuess = Integer.parseInt(line);
 
 				System.out.println(userName + ", please enter the column number: ");
@@ -101,17 +102,15 @@ public class Game {
 			if(status) {
 				System.out.println("Congratulations, " + userName + "!!! You won!");
 				wins++;
-				userScores.put(userName, wins);
-				printList();
 			}
 
 			// If user loses, sorted List is printed
 			else {
 				System.out.println("You lost, " + userName + "! :(");
-				userScores.put(userName, wins);
-				printList();
 			}
 
+			userScores.put(userName, wins);
+			printList();
 			// Choice of what user wants to do after game ends
 			System.out.println("Would you like to keep playing, " + userName + "? Y for yes, N to change users, Q to"
 					+ " quit game, and C to clear the leaderboard.");
@@ -221,9 +220,13 @@ public class Game {
 	 * @return mapList, a sorted List that has the elements of HashMap
 	 */
 	public List<Map.Entry<String, Integer>> sortScores(HashMap<String, Integer> scores) {
+		// create arraylist that takes in elements of the hashmap
+		// use collections sort method to sort the HashMap, comparing two elements
 		List<Map.Entry<String, Integer>> mapList = new ArrayList<Map.Entry<String, Integer>>(scores.entrySet());
 		Collections.sort(mapList, new Comparator<Map.Entry<String, Integer>>() {
 			@Override
+			// method within sort method to return the greater element first, so that
+			// list is sorted in descending order
 			public int compare(Map.Entry<String, Integer> entry1, Map.Entry<String, Integer> entry2) {
 				return entry2.getValue().compareTo(entry1.getValue());
 			}
