@@ -50,7 +50,7 @@ public class Display extends Board {
 		{
 			for(int c=(col -1); c<(col+2); c++)
 			{
-				if(!(r==row) && !(c==col))
+				if(!(r==row && c==col))
 				{
 					try
 					{
@@ -83,7 +83,7 @@ public class Display extends Board {
 		{
 			for(int c=(col -1); c<(col+2); c++)
 			{
-				if(!(r==row) && !(c==col))
+				if(!(r==row && c==col))
 				{
 					try
 					{
