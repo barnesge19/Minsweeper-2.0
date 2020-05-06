@@ -46,7 +46,7 @@ public class Display extends Board {
 	 */
 	private void openSurroundingSpaces(int row, int col)
 	{
-		for(int r = (row+1); r<(row+2); r++)
+		for(int r = (row-1); r<(row+2); r++)
 		{
 			for(int c=(col -1); c<(col+2); c++)
 			{
@@ -79,7 +79,7 @@ public class Display extends Board {
 	public int spaceNumber(int row, int col) {
 		int nearMines = 0;
 		
-		for(int r = (row+1); r<(row+2); r++)
+		for(int r = (row-1); r<(row+2); r++)
 		{
 			for(int c=(col -1); c<(col+2); c++)
 			{
