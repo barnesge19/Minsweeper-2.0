@@ -30,7 +30,7 @@ public class Display extends Board {
 		open[row][col] = true;
 
 
-		if(spaceNumber(row,col)==0)
+		if(!(super.getSpace(row,col)) && (spaceNumber(row,col)==0))
 		{
 			openSurroundingSpaces(row,col);
 		}
@@ -122,5 +122,19 @@ public class Display extends Board {
 	public void setOpen(int row, int col)
 	{
 		open[row][col]=true;
+	}
+	
+	/**
+	 * Opens the whole board
+	 */
+	public void openAll()
+	{
+		for(int r=0; r<super.DIMENSION; r++)
+		{
+			for(int c=0; c<super.DIMENSION; c++)
+			{
+				open[r][c]=true;
+			}
+		}
 	}
 }

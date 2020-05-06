@@ -39,9 +39,11 @@ public class Game {
 		int wins = 0;
 
 		do {
-			do {
+			//Print beginning board
+			System.out.println(toString());
+			do {				
 				scn = new Scanner(System.in);
-				System.out.println(userName + ", please enter the row number: ");
+				System.out.println(userName + ", please enter the row number [0-9]: ");
 				boolean valInput = false;
 				String line = scn.nextLine();
 				
@@ -49,7 +51,7 @@ public class Game {
 				// input is valid
 				while (!valInput) {
 					if (line.length() != 1 || !Character.isDigit(line.charAt(0))) {
-						System.out.println("Invalid entry \nEnter row number: ");
+						System.out.println("Invalid entry \nEnter row number [0-9]: ");
 						line = scn.nextLine();
 					}
 					else {
@@ -95,17 +97,28 @@ public class Game {
 				if(lose(rowGuess,colGuess)) {
 					break;
 				}
+				
+				if(!status)
+					System.out.println(toString());
 
 			} while(!status);
 
 			// If user wins, status is true, sorted List is printed
 			if(status) {
+			//Open the whole board
+				userGame.openAll();
+				System.out.println(toString());
+			//Win message
 				System.out.println("Congratulations, " + userName + "!!! You won!");
 				wins++;
 			}
 
 			// If user loses, sorted List is printed
 			else {
+			//Open the whole board
+				userGame.openAll();
+				System.out.println(toString());
+			//Lose message
 				System.out.println("You lost, " + userName + "! :(");
 			}
 
@@ -124,6 +137,7 @@ public class Game {
 				// If user puts N, then it will switch to new user
 				if (choice.equals("N") || choice.equals("n")) {
 					validChoice = true;
+					userGame = new Display();
 					sameUser = false;
 				}
 
@@ -131,6 +145,7 @@ public class Game {
 				else if (choice.equals("Y") || choice.equals("y")) {
 					validChoice = true;
 					userGame = new Display();
+					sameUser=true;
 					continue;
 				}
 
@@ -154,7 +169,6 @@ public class Game {
 				}
 			}
 		} while(sameUser);
-		scn.close();
 		return true;
 	}
 
@@ -168,7 +182,11 @@ public class Game {
 	{
 		for (int r = 0; r < userGame.DIMENSION; r++) {
 			for (int c = 0; c < userGame.DIMENSION; c++) {
-				if (userGame.getOpen(r,c) !=  userGame.getSpace(r,c)) {
+				//Skip the space if it is a mine
+				if(userGame.getSpace(r, c))
+					continue;
+				//Make sure all free spaces are open
+				if (userGame.getOpen(r,c) ^ !(userGame.getSpace(r,c))) {
 					return false;
 				}
 			}
@@ -190,9 +208,9 @@ public class Game {
 		else if (userGame.getOpen(r, c)) {
 			throw new Exception("That space is already open. Try another one.");
 		}
-		if(!lose(r,c)) {
+		
+		//Open the space
 			userGame.openSpace(r, c);
-		}
 	}
 
 	/**
@@ -261,4 +279,55 @@ public class Game {
 			}
 		} while (keepPlaying);
 	}
+	
+	@Override
+	/**
+	 * Prints the board for every loop in the Game
+	 * [-] is an untouched space
+	 * [X] is a mine
+	 * [#] is the space number of mines nearby
+	 * [ ] is a space that has been opened with no bombs near it
+	 */
+	public String toString()
+	{
+		//Make a StringBuilder
+			StringBuilder sb = new StringBuilder();
+			
+		//Print out row numbers
+			for(int i=0; i<userGame.DIMENSION; i++)
+			{
+				sb.append(" " + i + " ");
+			}
+			sb.append("\n"); 
+		
+		//Print board
+			for(int r=0; r<userGame.DIMENSION; r++)
+			{
+				for(int c=0; c<userGame.DIMENSION; c++)
+				{
+					if(userGame.getOpen(r, c))
+					{
+						if(userGame.getSpace(r, c))
+						{
+							sb.append("[X]");
+						}
+						else
+						{
+							int temp = userGame.spaceNumber(r,c);
+							if(temp != 0)
+								sb.append("[" + temp + "]");
+							else
+								sb.append("[-]");
+						}
+					}
+					else
+					{
+						sb.append("[ ]");
+					}
+				}
+				sb.append(" " + r + "\n");
+		}
+		return sb.toString();
+	}
+	
 }

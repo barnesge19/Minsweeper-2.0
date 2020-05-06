@@ -19,7 +19,10 @@ public class Board {
 		for(int i=0; i<DIMENSION; i++)
 		{
 			int temp = rn.nextInt(100);
-			mines[temp / 10][temp % 10]=true;
+			if(!(mines[temp / 10][temp % 10]))
+				mines[temp / 10][temp % 10] = true;
+			else
+				i--;
 		}
 	}
 	
