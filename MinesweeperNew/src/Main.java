@@ -11,16 +11,7 @@ public class Main {
 	 */
 	public static void main(String[] args)
 	{
-		boolean playGame = true;
-		boolean gameStatus;
-		Game MineSweeper = new Game();
-
-		do {
-			gameStatus = MineSweeper.GameLoop();
-			if (!gameStatus) {
-				playGame = false;
-				System.out.println("Thank you for playing!");
-			}
-		} while (playGame);
+		Game mineSweeper = new Game();
+		mineSweeper.playGame();
 	}
 }

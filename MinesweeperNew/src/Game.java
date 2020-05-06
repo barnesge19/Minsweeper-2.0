@@ -244,4 +244,21 @@ public class Game {
 			System.out.println(entry.getKey() + ": " + entry.getValue() + " wins.");
 		}
 	}
+	
+	/**
+	 * Runs the game loop until the game is asked to stop
+	 */
+	public void playGame()
+	{
+		boolean keepPlaying = true;
+		boolean gameStatus;
+
+		do {
+			gameStatus = GameLoop();
+			if (!gameStatus) {
+				keepPlaying = false;
+				System.out.println("Thank you for playing!");
+			}
+		} while (keepPlaying);
+	}
 }
